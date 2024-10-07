@@ -21,13 +21,7 @@ class Resident
     public function create()
     {
         $query = "INSERT INTO $this->table (name, email, phone_number, room_number) VALUES (:name, :email, :phone,:room_number)";
-        // $query = 'INSERT INTO '. $this->table .'
-        //             SET 
-        //             name=:name, 
-        //             email=:email,
-        //             phone_number=:phone,
-        //              room_number = :room_number';
-
+       
         // check connection
         if ($this->conn === null) {
             return "connection is null";
