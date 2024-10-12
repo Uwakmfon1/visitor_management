@@ -20,19 +20,22 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 
-$visits->resident_phone = $data->resident_phone;
-$visits->resident_name = $data->resident_name;
-$visits->visit_purpose = $data->visit_purpose;
-$visits->visitor_name = $data->visitor_name;
-$visits->visitor_phone = $data->visitor_phone;
-$visits->check_in = $data->check_in;
+// $visits->resident_phone = $data->resident_phone;
+// $visits->resident_name = $data->resident_name;
+// $visits->visit_purpose = $data->visit_purpose;
+// $visits->visitor_name = $data->visitor_name;
+// $visits->visitor_phone = $data->visitor_phone;
+// $visits->check_in = $data->check_in;
+
+$visits->resident_id = $data->resident_id;
+$visits->visitor_id = $data->visitor_id;
 $visits->check_out = $data->check_out;
 
 
-if($visits->create())
+if($visits->update_checkout())
 {
     echo json_encode(
-        array("message"=>"new visits added")
+        array("message"=>"visits checkout column updated")
     );
 }else {
     echo json_encode(
