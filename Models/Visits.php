@@ -91,7 +91,18 @@ class Visits
      
     }
 
-    public function get() {}
+    public function get() {
+
+        $sql =  "SELECT * from $this->table";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+       echo json_encode($results);
+
+
+    }
 
     
     public function update_checkout() {
@@ -109,30 +120,53 @@ class Visits
         $stmt->bindParam(':visitor_id',$this->visitor_id, PDO::PARAM_INT);
         $stmt->bindParam(':resident_id',$this->resident_id, PDO::PARAM_INT);
     
-
+        // final selection of data
         $stmt->execute();
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
         $visitor_id = $results['visitor_id'];
         $resident_id = $results['resident_id'];
 
-
-
-
-        // $this->check_out = null;
-    //    if($this->check_out === null){
+        //query to execute   
        $update_checkout_query = "UPDATE $this->table SET check_out = :check_out WHERE visitor_id = $visitor_id AND resident_id = $resident_id";
-    //    }
-
+   
+        // execution
         $stmt = $this->conn->prepare($update_checkout_query);
         $stmt->bindParam(':check_out', $this->check_out, PDO::PARAM_STR);
+        $stmt->execute();
+        
+    }
+
+
+    public function delete(){
+        // fetch specific data you want to delete
+
+        // sanitize input
+        $this->visitor_id = htmlspecialchars(strip_tags($this->visitor_id));
+        $this->resident_id = htmlspecialchars(strip_tags($this->resident_id));
+
+        $delete_query = "DELETE FROM $this->table WHERE visitor_id = :visitor_id and resident_id = :resident_id";
+
+        $stmt = $this->conn->prepare($delete_query);
+
+        $stmt->bindParam(':visitor_id',$this->visitor_id,PDO::PARAM_INT);
+        $stmt->bindParam(':resident_id',$this->resident_id,PDO::PARAM_INT);
+
         $stmt->execute();
 
     }
 
-    public function delete() {}
+
+
+    public function deleteAll() {
+
+        $delete_query = "DELETE FROM $this->table";
+
+        $stmt = $this->conn->prepare($delete_query);
+
+        $stmt->execute();
+    }
 
     protected function checkout(){
         // code 
-
     }
 }
