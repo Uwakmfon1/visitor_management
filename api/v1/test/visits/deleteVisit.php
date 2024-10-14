@@ -14,6 +14,11 @@ $db = $database->connect();
 // instantiate new resident
 $visits = new Visits($db);
 
+$data = json_decode(file_get_contents("php://input"));
+
+$visits->resident_id = $data->resident_id;
+$visits->visitor_id = $data->visitor_id;
+
 // $visits->delete();
 
 if($visits->delete()){
