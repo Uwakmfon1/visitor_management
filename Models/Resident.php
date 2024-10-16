@@ -31,12 +31,7 @@ class Resident
         // prepared statement
         $stmt = $this->conn->prepare($query);
 
-        // // Check if prepare statement was successful
-        // if (!$stmt) {
-        //     printf("Error preparing statement: %s. \n", $this->conn->errorInfo()[2]);
-        //     return false;
-        // }
-
+        
         // sanitization of input
         $this->name = htmlspecialchars(strip_tags($this->name));
         $this->email = htmlspecialchars(strip_tags($this->email));

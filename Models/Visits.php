@@ -41,7 +41,6 @@ class Visits
         $stmt = $this->conn->prepare($select_resident_query);
 
         
-        
         $stmt->bindParam(":resident_name", $this->resident_name, PDO::PARAM_STR);
         $stmt->bindParam(":resident_phone", $this->resident_phone, PDO::PARAM_STR);
         
@@ -87,7 +86,7 @@ class Visits
         } else {
             echo "Error inserting visit.";
         }
-
+        
      
     }
 

@@ -5,7 +5,6 @@ header('Access-Control-Allow-Methods:POST');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 include_once '../../../../Models/Visits.php';
-// include_once '../../.././config/Database.php';
 include_once '../../../../config/Database.php';
 
 $database = new Database();
@@ -28,16 +27,7 @@ $visits->visitor_phone = $data->visitor_phone;
 $visits->check_in = $data->check_in;
 $visits->check_out = $data->check_out;
 
+$visits->create();
 
-if($visits->create())
-{
-    echo json_encode(
-        array("message"=>"new visits added")
-    );
-}else {
-    echo json_encode(
-        array("message"=>"new visits could not be added")
-    );
-}
 
 
